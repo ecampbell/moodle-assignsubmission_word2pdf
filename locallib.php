@@ -70,6 +70,21 @@ class assign_submission_word2pdf extends assign_submission_plugin {
     }
 
     /**
+     * Get the default settings for the Word file to PDF conversion plugin
+     *
+     * @param MoodleQuickForm $mform The form to add elements to
+     * @return void
+     */
+    public function get_settings(MoodleQuickForm $mform) {
+
+        // Is it enabled by default?
+        $defaultwordimportsubmissions = get_config('assignsubmission_word2pdf', 'wordimportsubmissions');
+        $mform->setDefault('assignsubmission_word2pdf', $defaultwordimportsubmissions);
+        // Enabled only if File submissions are enabled.
+        $mform->disabledIf('assignsubmission_word2pdf_enabled', 'assignsubmission_file_enabled', 'notchecked');
+
+    }
+    /**
      * File format options
      *
      * @return array
